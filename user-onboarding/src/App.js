@@ -4,11 +4,6 @@ import UsersForm from "./components/UsersForm"
 
 
 function App() {
-  const [users, setUsers] = useState([])
-
-  const addNewUser = user => {
-    setUsers ([...users, user])
-  }
 
   return (
     <div className="App">

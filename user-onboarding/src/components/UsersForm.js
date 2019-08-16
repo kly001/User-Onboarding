@@ -1,44 +1,61 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {Form, Field, withFormik} from "formik";
 import * as Yup from "yup";
 
 const UsersForm = ({errors, touched}) => {
+  const [users, setUsers] = useState([])
     return(
       <div className="users-form">
         <h1>Users Form</h1> 
         <Form>
             <Field type="text" name="name" placeholder="Name" /> 
             {touched.name && errors.name &&(
-            <p className="error">{errors.name}</p>)}
+            <p className="error">{errors.name}</p>
+            )}
+
             <Field type="email" name="email" placeholder="Email"/>
             {touched.email && errors.email &&(
-            <p className="error">{errors.email}</p>)}
+            <p className="error">{errors.email}</p>
+            )}
+
             <Field type="text" name="password" placeholder="Password"/>
             {touched.password && errors.password &&(
-            <p className="error">{errors.password}</p>)}
-              <label className="checkbox-container">
-                  Terms of Service
-                <Field
-                  type="checkbox"
-                  name="terms-of-service"
-                    />
-                  <span className="checkmark" />
+            <p className="error">{errors.password}</p>
+            )}
+
+            <Field component="select" className="gender" name="gender">
+                <option>Choose an Option</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+                <option value="decline">Decline to Answer</option>
+            </Field>
+
+              <label>
+                Terms of Service
+                <Field type="checkbox" name="service"/>       
               </label>
+            
             <button type="submit">Submit</button>
         </Form>
-      </div>
+        {users.map (user => (
+          <p>{user.name}</p>
+        ))}
+        </div>
     )
 }
 
 //Function that takes in a component, extends some logic onto that component
 //Returns a new component (copy of the passed in component) with the extended logic
 const FormikUsersForm = withFormik({
-  mapPropsToValues({ name, email, password }){
+  mapPropsToValues({ name, email, password, gender, service }){
     return {
     name: name || "",
     email: email || "",
-    password: password || ""
+    password: password || "",
+    gender: gender || "",
+    service: service || false
     }
   },
 
