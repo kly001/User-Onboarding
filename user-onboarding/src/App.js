@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import Form from "./components/Form"
+import UsersForm from "./components/UsersForm"
+
 
 function App() {
+  const [users, setUsers] = useState([])
+
+  const addNewUser = user => {
+    setUsers ([...users, user])
+  }
+
   return (
     <div className="App">
-      <h1>User Onboarding</h1>
-      <Form />
+      <UsersForm />
     </div>
   );
 }
 
 export default App;
+
